@@ -41,6 +41,24 @@ if [ "$location" = "forest" ]; then
     echo "The goblin slashes at you!"
     Player_Stats[hp]=$(( Player_Stats[hp] - Goblin[attack] ))
     echo "You took damage! Your HP is now ${Player_Stats[hp]}."
+    echo "would you like to swing at it with your sword? yes/no"
+    read answer
+    if [ "$answer" = "yes" ]; then
+      Goblin[hp]=$(( Goblin[hp] - Player_Stats[attack] ))
+      echo "It took damage and now has ${Goblin[hp]}HP!"
+      echo "It got really injured and recoiled in pain giving you enough time to attack again, would you like to attack again! yes/no"
+      read answer
+      if [ "$answer" = "yes" ]; then
+        echo "you killed it and managed to escape the forest"
+      else
+        echo "you did nothing and then the goblin stabbed you in the heart and you died"
+        exit 1
+      fi
+    
+    else
+      echo "you did nothing and then the goblin stabbed you in the heart and you died" 
+    fi
+  
   else
     echo "you left the forest completely unharmed"
   fi
@@ -62,7 +80,8 @@ elif [ "$location" = "cave" ]; then
       GiantBat[hp]=$(( GiantBat[hp] - 5 ))
       echo "The GiantBat has ${GiantBat[hp]} HP left!"
     else
-      echo "That spell didn't work!"
+      echo "The GiantBat attacked and you died"
+      exit 1
     fi
 
     echo "The GiantBat attacked you!"
